@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">Ask3</string>
+    <string name="first_question">Geschlecht</string>
+    <string name="second_question">Alter</string>
+    <string name="third_question">Beschäftigung</string>
+    <string name="fourth_question">Führerscheinbesitz</string>
+    <string name="fifth_question">PKW-Verfügbarkeit</string>
+    <string name="sixth_question">Zweiradbesitz</string>
+    <string name="first_a_answer">männlich</string>
+    <string name="first_b_answer">weiblich</string>
+
+    <string name="gender_prompt">Geschlecht</string>
+
+    <string-array name="gender_arrays">
+        <item>Männlich</item>
+        <item>Weiblich</item>
+    </string-array>
+
+    <string name="age_prompt">Alter</string>
+
+    <string-array name="age_arrays">
+        <item>18-30</item>
+        <item>31-60</item>
+        <item>61-</item>
+    </string-array>
+
+
+    <string name="engagement_prompt">Beschäftigung</string>
+
+    <string-array name="engagement_arrays">
+        <item>In Ausbildung</item>
+        <item>Nicht berufstätig</item>
+        <item>Berufstätig</item>
+    </string-array>
+
+    <string name="driving_prompt">Führerscheinbesit</string>
+
+    <string-array name="driving_arrays">
+        <item>Ja</item>
+        <item>Nein</item>
+    </string-array>
+
+    <string name="car_prompt">PKW-Verfügbarkeit</string>
+
+    <string-array name="car_arrays">
+        <item>Jederzeit verfügbar</item>
+        <item>Teilweise verfügbar</item>
+        <item>Nicht verfügbar</item>
+    </string-array>
+
+    <string name="bike_prompt">Zweiradbesitz</string>
+
+    <string-array name="bike_arrays">
+        <item>Mofa</item>
+        <item>Moped</item>
+        <item>Motorrad</item>
+        <item>Fahrrad</item>
+        <item>E-bike</item>
+
+    </string-array>
+
+    <string name="button_send">Ok</string>
+
+
+</resources>
