@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Ask3</string>
+    <string name="app_name">Ask</string>
     <string name="first_question">Geschlecht</string>
     <string name="second_question">Alter</string>
     <string name="third_question">Beschäftigung</string>
