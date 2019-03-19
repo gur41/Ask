@@ -1,0 +1,107 @@
+[
+  [
+    {
+      "id": 1,
+      "question": "валера гей?",
+      "sort": 1,
+      "answers": [
+        {
+          "id": 1,
+          "question_id": 1,
+          "answer": "да",
+          "sort": 1,
+          "created_at": "2019-03-19 12:50:07",
+          "updated_at": "1971-01-01 00:00:01"
+        },
+        {
+          "id": 2,
+          "question_id": 1,
+          "answer": "нет",
+          "sort": 1,
+          "created_at": "2019-03-19 12:50:20",
+          "updated_at": "1971-01-01 00:00:01"
+        },
+        {
+          "id": 3,
+          "question_id": 1,
+          "answer": "возможно",
+          "sort": 1,
+          "created_at": "2019-03-19 12:50:29",
+          "updated_at": "1971-01-01 00:00:01"
+        }
+      ],
+      "created_at": "2019-03-19T12:48:50.000000Z",
+      "updated_at": "1971-01-01T00:00:01.000000Z"
+    }
+  ],
+  [
+    {
+      "id": 2,
+      "question": "Рома женат?",
+      "sort": 1,
+      "answers": [
+        {
+          "id": 4,
+          "question_id": 2,
+          "answer": "да",
+          "sort": 1,
+          "created_at": "2019-03-19 12:50:37",
+          "updated_at": "1971-01-01 00:00:01"
+        },
+        {
+          "id": 5,
+          "question_id": 2,
+          "answer": "нет",
+          "sort": 1,
+          "created_at": "2019-03-19 12:51:06",
+          "updated_at": "1971-01-01 00:00:01"
+        },
+        {
+          "id": 6,
+          "question_id": 2,
+          "answer": "возможно",
+          "sort": 1,
+          "created_at": "2019-03-19 12:51:16",
+          "updated_at": "1971-01-01 00:00:01"
+        }
+      ],
+      "created_at": "2019-03-19T12:49:06.000000Z",
+      "updated_at": "1971-01-01T00:00:01.000000Z"
+    }
+  ],
+  [
+    {
+      "id": 3,
+      "question": "Рома разведен?",
+      "sort": 1,
+      "answers": [
+        {
+          "id": 7,
+          "question_id": 3,
+          "answer": "да",
+          "sort": 1,
+          "created_at": "2019-03-19 12:51:30",
+          "updated_at": "1971-01-01 00:00:01"
+        },
+        {
+          "id": 8,
+          "question_id": 3,
+          "answer": "нет",
+          "sort": 1,
+          "created_at": "2019-03-19 12:51:36",
+          "updated_at": "1971-01-01 00:00:01"
+        },
+        {
+          "id": 9,
+          "question_id": 3,
+          "answer": "возможно",
+          "sort": 1,
+          "created_at": "2019-03-19 12:51:43",
+          "updated_at": "1971-01-01 00:00:01"
+        }
+      ],
+      "created_at": "2019-03-19T12:49:18.000000Z",
+      "updated_at": "1971-01-01T00:00:01.000000Z"
+    }
+  ]
+]
