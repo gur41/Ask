@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -68,9 +69,146 @@ public class NumberRunActivity extends AppCompatActivity {
             startActivity(intent);
             this.finish();
         }
+        //parse(setUp());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_number_run);
 
+    }
+
+    public String setUp() {
+            String line1 = "[\n" +
+                    "  [\n" +
+                    "    {\n" +
+                    "      \"id\": 1,\n" +
+                    "      \"question\": \"валера гей?\",\n" +
+                    "      \"sort\": 1,\n" +
+                    "      \"answers\": [\n" +
+                    "        {\n" +
+                    "          \"id\": 1,\n" +
+                    "          \"question_id\": 1,\n" +
+                    "          \"answer\": \"да\",\n" +
+                    "          \"sort\": 1,\n" +
+                    "          \"created_at\": \"2019-03-19 12:50:07\",\n" +
+                    "          \"updated_at\": \"1971-01-01 00:00:01\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"id\": 2,\n" +
+                    "          \"question_id\": 1,\n" +
+                    "          \"answer\": \"нет\",\n" +
+                    "          \"sort\": 1,\n" +
+                    "          \"created_at\": \"2019-03-19 12:50:20\",\n" +
+                    "          \"updated_at\": \"1971-01-01 00:00:01\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"id\": 3,\n" +
+                    "          \"question_id\": 1,\n" +
+                    "          \"answer\": \"возможно\",\n" +
+                    "          \"sort\": 1,\n" +
+                    "          \"created_at\": \"2019-03-19 12:50:29\",\n" +
+                    "          \"updated_at\": \"1971-01-01 00:00:01\"\n" +
+                    "        }\n" +
+                    "      ],\n" +
+                    "      \"created_at\": \"2019-03-19T12:48:50.000000Z\",\n" +
+                    "      \"updated_at\": \"1971-01-01T00:00:01.000000Z\"\n" +
+                    "    }\n" +
+                    "  ],\n" +
+                    "  [\n" +
+                    "    {\n" +
+                    "      \"id\": 2,\n" +
+                    "      \"question\": \"Рома женат?\",\n" +
+                    "      \"sort\": 1,\n" +
+                    "      \"answers\": [\n" +
+                    "        {\n" +
+                    "          \"id\": 4,\n" +
+                    "          \"question_id\": 2,\n" +
+                    "          \"answer\": \"да\",\n" +
+                    "          \"sort\": 1,\n" +
+                    "          \"created_at\": \"2019-03-19 12:50:37\",\n" +
+                    "          \"updated_at\": \"1971-01-01 00:00:01\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"id\": 5,\n" +
+                    "          \"question_id\": 2,\n" +
+                    "          \"answer\": \"нет\",\n" +
+                    "          \"sort\": 1,\n" +
+                    "          \"created_at\": \"2019-03-19 12:51:06\",\n" +
+                    "          \"updated_at\": \"1971-01-01 00:00:01\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"id\": 6,\n" +
+                    "          \"question_id\": 2,\n" +
+                    "          \"answer\": \"возможно\",\n" +
+                    "          \"sort\": 1,\n" +
+                    "          \"created_at\": \"2019-03-19 12:51:16\",\n" +
+                    "          \"updated_at\": \"1971-01-01 00:00:01\"\n" +
+                    "        }\n" +
+                    "      ],\n" +
+                    "      \"created_at\": \"2019-03-19T12:49:06.000000Z\",\n" +
+                    "      \"updated_at\": \"1971-01-01T00:00:01.000000Z\"\n" +
+                    "    }\n" +
+                    "  ],\n" +
+                    "  [\n" +
+                    "    {\n" +
+                    "      \"id\": 3,\n" +
+                    "      \"question\": \"Рома разведен?\",\n" +
+                    "      \"sort\": 1,\n" +
+                    "      \"answers\": [\n" +
+                    "        {\n" +
+                    "          \"id\": 7,\n" +
+                    "          \"question_id\": 3,\n" +
+                    "          \"answer\": \"да\",\n" +
+                    "          \"sort\": 1,\n" +
+                    "          \"created_at\": \"2019-03-19 12:51:30\",\n" +
+                    "          \"updated_at\": \"1971-01-01 00:00:01\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"id\": 8,\n" +
+                    "          \"question_id\": 3,\n" +
+                    "          \"answer\": \"нет\",\n" +
+                    "          \"sort\": 1,\n" +
+                    "          \"created_at\": \"2019-03-19 12:51:36\",\n" +
+                    "          \"updated_at\": \"1971-01-01 00:00:01\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"id\": 9,\n" +
+                    "          \"question_id\": 3,\n" +
+                    "          \"answer\": \"возможно\",\n" +
+                    "          \"sort\": 1,\n" +
+                    "          \"created_at\": \"2019-03-19 12:51:43\",\n" +
+                    "          \"updated_at\": \"1971-01-01 00:00:01\"\n" +
+                    "        }\n" +
+                    "      ],\n" +
+                    "      \"created_at\": \"2019-03-19T12:49:18.000000Z\",\n" +
+                    "      \"updated_at\": \"1971-01-01T00:00:01.000000Z\"\n" +
+                    "    }\n" +
+                    "  ]\n" +
+                    "]";
+            return line1;
+    }
+    public void parse(String str){
+        JSONArray myResponseArray = null;
+        try {
+            myResponseArray = new JSONArray(str);
+            JSONArray myResponse = myResponseArray.getJSONArray(0);
+            ArrayList<Question> questions = new ArrayList<>();
+            for (int i =0; i<myResponseArray.length();i++) {
+                JSONObject o = myResponseArray.getJSONArray(i).getJSONObject(0);
+                Question question = new Question();
+                question.setId(o.getInt("id"));
+                question.setQuestion(o.getString("question"));
+                ArrayList<Answer> answersList = new ArrayList<>();
+                JSONArray answers = new JSONArray(o.getString("answers"));
+                for (int j =0;j<answers.length();j++){
+                    JSONObject obj = answers.getJSONObject(j);
+                    answersList.add(new Answer(obj.getInt("id"),obj.getString("answer")));
+                }
+                question.setAnswers(answersList);
+                questions.add(question);
+            }
+            System.out.println("hello");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public void enterNumberRun(View view) {
@@ -284,12 +422,9 @@ public class NumberRunActivity extends AppCompatActivity {
 
             start = String.valueOf(parseDate(myResponse.getString("startdate")));
             System.out.println(start);
-            //start = "Fri Mar 18 16:33:00 GMT+03:00 2019";
             end = String.valueOf(parseDate(myResponse.getString("enddate")));
-            //end = "Fri Mar 20 16:33:00 GMT+03:00 2019";
             runTime = Integer.valueOf(myResponse.getInt("runtime"));
             timing = Integer.valueOf(myResponse.getInt("collect_interval"));
-
 
             conn.disconnect();
 

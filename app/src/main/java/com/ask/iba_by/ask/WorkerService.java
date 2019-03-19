@@ -113,7 +113,7 @@ public class WorkerService extends Service {
             JSONObject json = new JSONObject();
             json.put("degree_latitude", location.getLatitude());
             json.put("degree_longitude", location.getLongitude());
-            json.put("сollection_id", id_collection);
+            json.put("collection_id", id_collection);
             json.put("user_id", id_user);
 
             Log.i("JSON", json.toString());
