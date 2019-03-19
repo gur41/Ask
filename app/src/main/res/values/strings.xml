@@ -8,6 +8,8 @@
     <string name="sixth_question">Zweiradbesitz</string>
     <string name="first_a_answer">männlich</string>
     <string name="first_b_answer">weiblich</string>
+    <string name="number_run">Enter run\'s number</string>
+    <string name="button_run">Start</string>
 
     <string name="gender_prompt">Geschlecht</string>
 

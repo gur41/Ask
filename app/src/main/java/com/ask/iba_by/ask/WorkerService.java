@@ -17,7 +17,9 @@ import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+
 import com.google.android.gms.location.*;
+
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
@@ -35,10 +37,10 @@ public class WorkerService extends Service {
     private FusedLocationProviderClient fusedLocationProviderClient;
     private LocationRequest locationRequest;
     private LocationCallback locationCallback;
+    public static String SERVER = "https://3dlab.icdc.io/geotracking/public/index.php";
 
-    public static String id;
-    public static Integer start = 0;
-    public static Integer end = 0;
+    public static String id_user;
+    public static String id_collection;
 
     @Nullable
     @Override
@@ -48,7 +50,8 @@ public class WorkerService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        id = intent.getStringExtra("id");       //get id from Worker
+        id_user = intent.getStringExtra("id_user");//get id from Worker
+        id_collection = intent.getStringExtra("id_collection");
         Log.d("workmng", "location");
         getLocation();      //get location
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -77,7 +80,8 @@ public class WorkerService extends Service {
                     Log.d("workmng", String.valueOf(location.getLatitude()));
                     Log.d("workmng", String.valueOf(location.getLongitude()));
 
-                    insertLocation(location); //insert in database coordinates
+                    //insertLocation(location); //insert in database coordinates
+                    sendPost(location);
 
                 }
             }
@@ -94,26 +98,43 @@ public class WorkerService extends Service {
         locationRequest.setSmallestDisplacement(10);
     }
 
-    public void insertLocation(Location location) {
-        String url = "jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7281136";      //  hostname of database
-        String user = "sql7281136";                                                 //  user name
-        String password = "dJPTekAKJz";                                             //  user's password
+    public void sendPost(final Location location) {
         StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(threadPolicy);
-
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            URL url = new URL(SERVER+"/collectionData");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+            conn.setRequestProperty("Accept", "application/json");
+            conn.setDoOutput(true);
+            conn.setDoInput(false);
 
-            Connection conn = DriverManager.getConnection(url, user, password);
-            Statement st = conn.createStatement();
-            String sql = "INSERT INTO `coordinates` (`id_user`, `latitude`, `longitude`) VALUES\n" +
-                    "('" + id + "', '" + location.getLatitude() + "', '" + location.getLongitude() + "');";
-            st.execute(sql);
+            JSONObject json = new JSONObject();
+            json.put("degree_latitude", location.getLatitude());
+            json.put("degree_longitude", location.getLongitude());
+            json.put("сollection_id", id_collection);
+            json.put("user_id", id_user);
 
-            conn.close();
-        } catch (SQLException | ClassNotFoundException e) {
+            Log.i("JSON", json.toString());
+            DataOutputStream os = new DataOutputStream(conn.getOutputStream());
+            //os.writeBytes(URLEncoder.encode(json.toString(), "Windows-1250"));
+            os.write(json.toString().getBytes("UTF-8"));
+            //os.writeUTF(json.toString());
+            //ObjectOutputStream os = new ObjectOutputStream(conn.getOutputStream());
+            //os.writeObject(json.toString());
+            os.flush();
+            os.close();
+
+            Log.i("STATUS", String.valueOf(conn.getResponseCode()));
+            Log.i("MSG", conn.getResponseMessage());
+
+            conn.disconnect();
+        } catch (Exception e) {
             e.printStackTrace();
+            Log.i("Exception", "12345");
         }
+
     }
 
 

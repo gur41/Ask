@@ -36,12 +36,12 @@ public class Worker extends androidx.work.Worker {
 
         Intent serviceIntent = new Intent(this.getApplicationContext(), WorkerService.class);
 
-        String valueId =  getInputData().getString("id","");
-
+        String valueIdUser =  getInputData().getString("id_user","");
+        String valueIdCollection =  getInputData().getString("id_collection","");
         //insert values(user's id) to transfer to WorkerService
         serviceIntent.putExtra("inputExtra", "input");
-        serviceIntent.putExtra("id", valueId);
-
+        serviceIntent.putExtra("id_user", valueIdUser);
+        serviceIntent.putExtra("id_collection", valueIdCollection);
         //start WorkerService, which will send coordinates
 
         ContextCompat.startForegroundService(this.getApplicationContext(), serviceIntent);

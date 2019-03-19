@@ -6,4 +6,32 @@
     android:layout_height="match_parent"
     tools:context=".NumberRunActivity">
 
+    <EditText
+        android:id="@+id/numberRun"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:hint="@string/number_run"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:inputType="number"
+
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints"
+        android:text="@string/button_run"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:onClick="enterNumberRun"
+        app:layout_constraintTop_toBottomOf="@+id/numberRun"
+        />
+
+
 </android.support.constraint.ConstraintLayout>

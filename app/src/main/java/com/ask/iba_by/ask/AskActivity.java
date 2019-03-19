@@ -1,5 +1,6 @@
 package com.ask.iba_by.ask;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -25,12 +26,13 @@ import java.util.UUID;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
+
 import org.json.JSONObject;
 
 
 public class AskActivity extends AppCompatActivity {
 
-    private final static String FILE_NAME = "content1.txt";
+    private final static String FILE_NAME = "ask.txt";
     AlertDialog.Builder ad;
     String firstQuestion;
     String secondQuestion;
@@ -43,18 +45,11 @@ public class AskActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        askPermission();
         setContentView(R.layout.activity_ask);
         super.onCreate(savedInstanceState);
-        if (openText()) {
-            setUpAnsweres();//check if file doesn't exist   | if file exists close mainActivity and open second
-        } else {
-            Intent intent = new Intent(AskActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        setUpAnsweres();
 
-        Button button = (Button) findViewById(R.id.button);
+        /*Button button = (Button) findViewById(R.id.button);
 
         button.setOnClickListener(new View.OnClickListener() {
 
@@ -69,10 +64,81 @@ public class AskActivity extends AppCompatActivity {
                 ad.setPositiveButton(button2String, new OnClickListener() {
                     public void onClick(DialogInterface dialog, int arg1) {
 
-                        //
-                        saveText();//create file for check if this application was launched
                         getAnswers();
-                        insert();
+                        //insert();
+                        saveStatusAnswerIntoFile();
+                        Intent intent = new Intent(AskActivity.this, MainActivity.class);
+                        intent.putExtra("id", id);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+                ad.setNegativeButton(button1String, new OnClickListener() {
+                    public void onClick(DialogInterface dialog, int arg1) {
+
+                    }
+                });
+                ad.setCancelable(true);
+                ad.setOnCancelListener(new OnCancelListener() {
+                    public void onCancel(DialogInterface dialog) {
+
+                    }
+                });
+                ad.show();
+            }
+        });*/
+    }
+
+    //get answers from android screen
+    public void getAnswers() {
+        for (int i = 0; i < ids.size(); i++) {
+            Spinner one = (Spinner) findViewById(ids.get(i));
+            String one1 = one.getSelectedItem().toString();
+            System.out.println(one1);
+        }
+    }
+
+    @SuppressLint("ResourceType")
+    public void setUpAnsweres() {
+        for (int i = 0; i < 8; i++) {
+
+            Spinner spinner = new Spinner(this);
+            ArrayList<String> spinnerArray = new ArrayList<String>();
+            spinnerArray.add("one");
+            spinnerArray.add("two");
+            spinnerArray.add("three");
+            spinnerArray.add("four");
+            spinnerArray.add("five");
+
+            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, spinnerArray);
+            spinner.setAdapter(spinnerArrayAdapter);
+            spinner.setId(100 + i);
+            ids.add(100 + i);
+            LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayout);
+            layout.addView(spinner);
+
+        }
+        Button button = new Button(this);
+        button.setText("Ok");
+        button.setId(10000);
+        LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayout);
+        layout.addView(button);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+
+                String button1String = "Nein";
+                String button2String = "Ja";
+
+                ad = new AlertDialog.Builder(AskActivity.this);
+                ad.setTitle("Möchten Sie wirklich Daten senden?");  // заголовок
+                //ad.setMessage("message"); // сообщение
+                ad.setPositiveButton(button2String, new OnClickListener() {
+                    public void onClick(DialogInterface dialog, int arg1) {
+
+                        getAnswers();
+                        //insert();
+                        saveStatusAnswerIntoFile();
                         Intent intent = new Intent(AskActivity.this, MainActivity.class);
                         intent.putExtra("id", id);
                         startActivity(intent);
@@ -93,113 +159,21 @@ public class AskActivity extends AppCompatActivity {
                 ad.show();
             }
         });
+
     }
 
-    //get answers from android screen
-    public void getAnswers() {
-        /*final Spinner spinner1 = (Spinner) findViewById(R.id.spinner1);
-        final Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
-        final Spinner spinner3 = (Spinner) findViewById(R.id.spinner3);
-        final Spinner spinner4 = (Spinner) findViewById(R.id.spinner4);
-        final Spinner spinner5 = (Spinner) findViewById(R.id.spinner5);
-        final Spinner spinner6 = (Spinner) findViewById(R.id.spinner6);
-        firstQuestion = spinner1.getSelectedItem().toString();
-        DataOutputStream os = new DataOutputStream(new OutputStream() {
-            @Override
-            public void write(int b) throws IOException {
 
-            }
-        });
+    public void saveStatusAnswerIntoFile() {
+        String fileName = getExternalFilesDir(null).getAbsolutePath() + "/ask.txt";
+        FileWriter fileWriter = null;
         try {
-            os.writeBytes(firstQuestion);
+            fileWriter = new FileWriter(new File(fileName), true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write("answered" + System.getProperty("line.separator"));
+            bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        secondQuestion = spinner2.getSelectedItem().toString();
-        thirdQuestion = spinner3.getSelectedItem().toString();
-        fourthQuestion = spinner4.getSelectedItem().toString();
-        fifrthQuestion = spinner5.getSelectedItem().toString();
-        sixthQuestion = spinner6.getSelectedItem().toString();*/
-        for(int i =0; i<ids.size();i++) {
-            Spinner one = (Spinner)findViewById(ids.get(i));
-            String one1 = one.getSelectedItem().toString();
-            System.out.println(one1);
-        }
-    }
-
-    public void setUpAnsweres(){
-        for(int i =0;i<8;i++) {
-
-            Spinner spinner = new Spinner(this);
-            ArrayList<String> spinnerArray = new ArrayList<String>();
-            spinnerArray.add("one");
-            spinnerArray.add("two");
-            spinnerArray.add("three");
-            spinnerArray.add("four");
-            spinnerArray.add("five");
-
-            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, spinnerArray);
-            spinner.setAdapter(spinnerArrayAdapter);
-            spinner.setId(100+i);
-            ids.add(100+i);
-            LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayout);
-            layout.addView(spinner);
-
-        }
-    }
-
-
-
-    public void saveText() {
-
-        FileOutputStream fos = null;
-        try {
-            id = UUID.randomUUID().toString();
-            System.out.println(id);
-
-            fos = openFileOutput(FILE_NAME, MODE_APPEND);
-            fos.write(id.getBytes());
-
-        } catch (IOException ex) {
-
-
-        } finally {
-            try {
-                if (fos != null)
-                    fos.close();
-            } catch (IOException ex) {
-
-
-            }
-        }
-    }
-
-    public boolean openText() {
-
-        FileInputStream fin = null;
-        try {
-            fin = openFileInput(FILE_NAME);
-            byte[] bytes = new byte[fin.available()];
-            fin.read(bytes);
-            String text = new String(bytes);
-            if (text.length() > 0)
-                return false;
-            else
-                return true;
-        } catch (IOException ex) {
-
-
-        } finally {
-
-            try {
-                if (fin != null)
-                    fin.close();
-            } catch (IOException ex) {
-
-
-            }
-        }
-        return true;
     }
 
 
@@ -250,44 +224,6 @@ public class AskActivity extends AppCompatActivity {
         thread.start();
     }
 
-    //ask all needed permissions
-    public void askPermission() {
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(AskActivity.this,
-                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                    1);
-        }
-        ;
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(AskActivity.this,
-                    new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
-                    1);
-        }
-        ;
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECEIVE_BOOT_COMPLETED)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(AskActivity.this,
-                    new String[]{android.Manifest.permission.RECEIVE_BOOT_COMPLETED},
-                    1);
-        }
-        ;
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.INTERNET)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(AskActivity.this,
-                    new String[]{android.Manifest.permission.INTERNET},
-                    1);
-        }
-        ;
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_NETWORK_STATE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(AskActivity.this,
-                    new String[]{android.Manifest.permission.ACCESS_NETWORK_STATE},
-                    1);
-        }
-    }
-
 
     //insert answers into database
     public void insert() {
@@ -310,6 +246,7 @@ public class AskActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
 
 
 }
