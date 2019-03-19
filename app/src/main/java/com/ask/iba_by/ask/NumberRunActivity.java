@@ -69,7 +69,7 @@ public class NumberRunActivity extends AppCompatActivity {
             startActivity(intent);
             this.finish();
         }
-        //parse(setUp());
+        parse(setUp());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_number_run);
 
