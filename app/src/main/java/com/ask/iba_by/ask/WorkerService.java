@@ -23,8 +23,11 @@ import com.google.android.gms.location.*;
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -38,6 +41,7 @@ public class WorkerService extends Service {
     private LocationRequest locationRequest;
     private LocationCallback locationCallback;
     public static String SERVER = "https://3dlab.icdc.io/geotracking/public/index.php";
+    private long millsecond =0;
 
     public static String id_user;
     public static String id_collection;
@@ -81,7 +85,11 @@ public class WorkerService extends Service {
                     Log.d("workmng", String.valueOf(location.getLongitude()));
 
                     //insertLocation(location); //insert in database coordinates
-                    sendPost(location);
+                    long currentTime = Calendar.getInstance().getTimeInMillis();
+                    if(Math.abs(currentTime - millsecond)> 30 *1000 ) {
+                        sendPost(location);
+                        millsecond=currentTime;
+                    }
 
                 }
             }
@@ -101,8 +109,9 @@ public class WorkerService extends Service {
     public void sendPost(final Location location) {
         StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(threadPolicy);
+        String run = id_collection;
         try {
-            URL url = new URL(SERVER+"/collectionData");
+            URL url = new URL(SERVER+"/collectionData/"+run+"&"+encrypt(run));
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
@@ -135,6 +144,17 @@ public class WorkerService extends Service {
             Log.i("Exception", "12345");
         }
 
+    }
+
+    public String encrypt(String run) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        byte[] bytesOfMessage = (run+"idontknow").getBytes("UTF-8");
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] thedigest = md.digest(bytesOfMessage);
+        StringBuilder str = new StringBuilder();
+        for (byte b: thedigest) {
+            str.append(String.format("%02x",b));
+        }
+        return str.toString();
     }
 
 

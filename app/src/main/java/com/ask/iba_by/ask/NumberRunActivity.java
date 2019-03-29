@@ -28,8 +28,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,6 +54,7 @@ public class NumberRunActivity extends AppCompatActivity {
     public String end;
     public Integer runTime;
     public Integer timing;
+    public String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,147 +73,12 @@ public class NumberRunActivity extends AppCompatActivity {
             startActivity(intent);
             this.finish();
         }
-        //parse(setUp());
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_number_run);
 
     }
 
-    public String setUp() {
-            String line1 = "[\n" +
-                    "  [\n" +
-                    "    {\n" +
-                    "      \"id\": 1,\n" +
-                    "      \"question\": \"валера гей?\",\n" +
-                    "      \"sort\": 1,\n" +
-                    "      \"answers\": [\n" +
-                    "        {\n" +
-                    "          \"id\": 1,\n" +
-                    "          \"question_id\": 1,\n" +
-                    "          \"answer\": \"да\",\n" +
-                    "          \"sort\": 1,\n" +
-                    "          \"created_at\": \"2019-03-19 12:50:07\",\n" +
-                    "          \"updated_at\": \"1971-01-01 00:00:01\"\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "          \"id\": 2,\n" +
-                    "          \"question_id\": 1,\n" +
-                    "          \"answer\": \"нет\",\n" +
-                    "          \"sort\": 1,\n" +
-                    "          \"created_at\": \"2019-03-19 12:50:20\",\n" +
-                    "          \"updated_at\": \"1971-01-01 00:00:01\"\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "          \"id\": 3,\n" +
-                    "          \"question_id\": 1,\n" +
-                    "          \"answer\": \"возможно\",\n" +
-                    "          \"sort\": 1,\n" +
-                    "          \"created_at\": \"2019-03-19 12:50:29\",\n" +
-                    "          \"updated_at\": \"1971-01-01 00:00:01\"\n" +
-                    "        }\n" +
-                    "      ],\n" +
-                    "      \"created_at\": \"2019-03-19T12:48:50.000000Z\",\n" +
-                    "      \"updated_at\": \"1971-01-01T00:00:01.000000Z\"\n" +
-                    "    }\n" +
-                    "  ],\n" +
-                    "  [\n" +
-                    "    {\n" +
-                    "      \"id\": 2,\n" +
-                    "      \"question\": \"Рома женат?\",\n" +
-                    "      \"sort\": 1,\n" +
-                    "      \"answers\": [\n" +
-                    "        {\n" +
-                    "          \"id\": 4,\n" +
-                    "          \"question_id\": 2,\n" +
-                    "          \"answer\": \"да\",\n" +
-                    "          \"sort\": 1,\n" +
-                    "          \"created_at\": \"2019-03-19 12:50:37\",\n" +
-                    "          \"updated_at\": \"1971-01-01 00:00:01\"\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "          \"id\": 5,\n" +
-                    "          \"question_id\": 2,\n" +
-                    "          \"answer\": \"нет\",\n" +
-                    "          \"sort\": 1,\n" +
-                    "          \"created_at\": \"2019-03-19 12:51:06\",\n" +
-                    "          \"updated_at\": \"1971-01-01 00:00:01\"\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "          \"id\": 6,\n" +
-                    "          \"question_id\": 2,\n" +
-                    "          \"answer\": \"возможно\",\n" +
-                    "          \"sort\": 1,\n" +
-                    "          \"created_at\": \"2019-03-19 12:51:16\",\n" +
-                    "          \"updated_at\": \"1971-01-01 00:00:01\"\n" +
-                    "        }\n" +
-                    "      ],\n" +
-                    "      \"created_at\": \"2019-03-19T12:49:06.000000Z\",\n" +
-                    "      \"updated_at\": \"1971-01-01T00:00:01.000000Z\"\n" +
-                    "    }\n" +
-                    "  ],\n" +
-                    "  [\n" +
-                    "    {\n" +
-                    "      \"id\": 3,\n" +
-                    "      \"question\": \"Рома разведен?\",\n" +
-                    "      \"sort\": 1,\n" +
-                    "      \"answers\": [\n" +
-                    "        {\n" +
-                    "          \"id\": 7,\n" +
-                    "          \"question_id\": 3,\n" +
-                    "          \"answer\": \"да\",\n" +
-                    "          \"sort\": 1,\n" +
-                    "          \"created_at\": \"2019-03-19 12:51:30\",\n" +
-                    "          \"updated_at\": \"1971-01-01 00:00:01\"\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "          \"id\": 8,\n" +
-                    "          \"question_id\": 3,\n" +
-                    "          \"answer\": \"нет\",\n" +
-                    "          \"sort\": 1,\n" +
-                    "          \"created_at\": \"2019-03-19 12:51:36\",\n" +
-                    "          \"updated_at\": \"1971-01-01 00:00:01\"\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "          \"id\": 9,\n" +
-                    "          \"question_id\": 3,\n" +
-                    "          \"answer\": \"возможно\",\n" +
-                    "          \"sort\": 1,\n" +
-                    "          \"created_at\": \"2019-03-19 12:51:43\",\n" +
-                    "          \"updated_at\": \"1971-01-01 00:00:01\"\n" +
-                    "        }\n" +
-                    "      ],\n" +
-                    "      \"created_at\": \"2019-03-19T12:49:18.000000Z\",\n" +
-                    "      \"updated_at\": \"1971-01-01T00:00:01.000000Z\"\n" +
-                    "    }\n" +
-                    "  ]\n" +
-                    "]";
-            return line1;
-    }
-    public void parse(String str){
-        JSONArray myResponseArray = null;
-        try {
-            myResponseArray = new JSONArray(str);
-            JSONArray myResponse = myResponseArray.getJSONArray(0);
-            ArrayList<Question> questions = new ArrayList<>();
-            for (int i =0; i<myResponseArray.length();i++) {
-                JSONObject o = myResponseArray.getJSONArray(i).getJSONObject(0);
-                Question question = new Question();
-                question.setId(o.getInt("id"));
-                question.setQuestion(o.getString("question"));
-                ArrayList<Answer> answersList = new ArrayList<>();
-                JSONArray answers = new JSONArray(o.getString("answers"));
-                for (int j =0;j<answers.length();j++){
-                    JSONObject obj = answers.getJSONObject(j);
-                    answersList.add(new Answer(obj.getInt("id"),obj.getString("answer")));
-                }
-                question.setAnswers(answersList);
-                questions.add(question);
-            }
-            System.out.println("hello");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void enterNumberRun(View view) {
         TextView numberRun = (TextView) findViewById(R.id.numberRun);
@@ -243,26 +112,34 @@ public class NumberRunActivity extends AppCompatActivity {
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
                 System.out.println("one");
                 bufferedWriter.write(run + System.getProperty("line.separator"));
-                if (Calendar.getInstance().getTime().before(new Date(start))) {
-                    bufferedWriter.write(start + System.getProperty("line.separator"));
-                    bufferedWriter.write(new Date((new Date(start)).getTime() + TimeUnit.HOURS.toMillis(runTime)) + System.getProperty("line.separator"));
-                } else {
-                    Date currentTime = Calendar.getInstance().getTime();
-                    bufferedWriter.write(currentTime + System.getProperty("line.separator"));
-                    bufferedWriter.write(new Date(currentTime.getTime() + TimeUnit.HOURS.toMillis(runTime)) + System.getProperty("line.separator"));
+                if (Calendar.getInstance().getTime().before(new Date(end))) {
+                    if (Calendar.getInstance().getTime().before(new Date(start))) {
+                        bufferedWriter.write(start + System.getProperty("line.separator"));
+                        bufferedWriter.write(new Date((new Date(start)).getTime() + TimeUnit.HOURS.toMillis(runTime)) + System.getProperty("line.separator"));
+                    } else {
+                        Date currentTime = Calendar.getInstance().getTime();
+                        bufferedWriter.write(currentTime + System.getProperty("line.separator"));
+                        bufferedWriter.write(new Date(currentTime.getTime() + TimeUnit.HOURS.toMillis(runTime)) + System.getProperty("line.separator"));
+                        //bufferedWriter.write(String.valueOf(new Date("Wed Mar 27 20:04:00 GMT+03:00 2019"))+System.getProperty("line.separator"));
+                    }
+                    bufferedWriter.write(timing + System.getProperty("line.separator"));
+                    bufferedWriter.close();
+                    Intent intent = new Intent(NumberRunActivity.this, AskActivity.class);
+                    startActivity(intent);
+                    this.finish();
                 }
-                bufferedWriter.write(timing + System.getProperty("line.separator"));
-                bufferedWriter.close();
-                Intent intent = new Intent(NumberRunActivity.this, AskActivity.class);
-                startActivity(intent);
-                this.finish();
+                else{
+                    Intent intent = new Intent(NumberRunActivity.this, NotStartedActivity.class);
+                    startActivity(intent);
+                    this.finish();
+                }
             } else {
                 getOptions();
                 FileWriter fileRewriter = new FileWriter(file, false);
                 BufferedWriter bufferedRewriter = new BufferedWriter(fileRewriter);
                 System.out.println("size: " + strings.size());
                 if (Calendar.getInstance().getTime().before(new Date(end))) {
-                    if (numberRun.equals(strings.get(1))) {
+                    if (run.equals(strings.get(1))) {
                         bufferedRewriter.write(strings.get(0) + System.getProperty("line.separator"));
                         bufferedRewriter.write(strings.get(1) + System.getProperty("line.separator"));
                         Date currentTime = Calendar.getInstance().getTime();
@@ -287,13 +164,14 @@ public class NumberRunActivity extends AppCompatActivity {
                         }
                         bufferedRewriter.write(timing + System.getProperty("line.separator"));
                         bufferedRewriter.close();
+                        System.out.println("--------------------------------------");
+                        System.out.println(numberRun);
                         Intent intent = new Intent(NumberRunActivity.this, AskActivity.class);
                         startActivity(intent);
                         this.finish();
                     }
-                }
-                else{
-                    for(String str:strings){
+                } else {
+                    for (String str : strings) {
                         bufferedRewriter.write(str);
                     }
                     bufferedRewriter.close();
@@ -351,7 +229,7 @@ public class NumberRunActivity extends AppCompatActivity {
         if (strings.size() < 4) {
             return false;
         } else {
-            if (strings.get(4).equals("answered")) {
+            if (strings.get(5).equals("answered")) {
                 return true;
             } else {
                 return false;
@@ -369,7 +247,7 @@ public class NumberRunActivity extends AppCompatActivity {
 
             idUser = UUID.randomUUID().toString();
             System.out.println(idUser);
-
+            id=idUser;
             bufferedWriter.write(idUser + System.getProperty("line.separator"));
 
             bufferedWriter.close(); // закрываем поток
@@ -397,7 +275,8 @@ public class NumberRunActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(threadPolicy);
         try {
-            String url1 = SERVER + "/collection/" + run;
+
+            String url1 = SERVER + "/collection/byid/" + run+"&"+encrypt(run)+"&"+run;
             URL url = new URL(url1);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
@@ -435,11 +314,22 @@ public class NumberRunActivity extends AppCompatActivity {
 
     public static Date parseDate(String date) {
         try {
-            System.out.println("DATE: "+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date));
+            System.out.println("DATE: " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date));
             return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date);
         } catch (ParseException e) {
             return null;
         }
+    }
+
+    public String encrypt(String run) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        byte[] bytesOfMessage = (run+"idontknow").getBytes("UTF-8");
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] thedigest = md.digest(bytesOfMessage);
+        StringBuilder str = new StringBuilder();
+        for (byte b: thedigest) {
+            str.append(String.format("%02x",b));
+        }
+        return str.toString();
     }
 
 
